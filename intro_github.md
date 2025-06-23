@@ -103,7 +103,7 @@ We make extensive use of GitHub's issue tracking system to manage projects in th
     git status;             # check status of repo
     ```
     <img src = "./demo-offline/newfile.png" style="width:480px">
-- We created a new file `notes.txt` Git is not currently tracking it's history. We need to tell Git to start tracking it. Commiting this change (create new file) will prompt Git to track it.
+- We created a new file `notes.txt` Git is not currently _tracking_ it's history. We need to tell Git to start tracking it. Commiting this change (create new file) will prompt Git to track it.
 
     ```sh
     git add notes.txt;  # stage the change
