@@ -63,7 +63,7 @@ refs/*.txt # regex to specify all .txt files within the refs/ folder
 
 ### Branching
 - *Branches* are a powerful feature of Git. It allows you to create an independant line of development without affecting the main codebase. 
-<img src ="branching.drawio.svg" style="background-color:black;width:640px">
+<img src ="branching.png" style="background-color:black;width:640px">
 - In the diagram above, there are 5 branches
     - The `main` branch contains the most stable version of your codebase. It is ready to be deployed and distributed to end-users. 
     - When a bug was discovered in `main`, a new branch `bugfix` was created from the latest `main` branch. Commits `B1`, `B2` were the necessary changes to fix the bug. 
