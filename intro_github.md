@@ -38,7 +38,14 @@ Version control means keeping track of creating and modifying source code. It's 
 Version (or "revision") control systems (VCSs) were developed to address these problems in the context of collaborative software development. Currently, one of the most popular VCSs is git.
 
 > Git can only track text-based files (`.txt`, `.py`, `.cpp`, `.f90`, etc). \
-Git cannot meaningfully track binary format files (`.pdf`, `.jpeg`, etc.)
+Git cannot meaningfully track binary format files (`.pdf`, `.jpeg`, etc.)\
+If you wish to selectively ignore tracking certain files (such as reference notes and scratch-pads) create a `.gitignore` file in the root of your repository and list the filenames and foldernames to be ignored. For example 
+```sh
+#.gitignore
+scratch.txt # a specific file
+build/ # the entire build/ folder
+refs/*.txt # regex to specify all .txt files within the refs/ folder
+``` 
 
 ### Commits
 - A commit in Git is a snapshot of your project at a specific point in time. Each commit is made up of 5 properties:
