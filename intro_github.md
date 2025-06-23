@@ -326,8 +326,8 @@ New Feature
     - Both types of tokens have a different UI for configuring the access control restrictions of the token. You should be familiar with  
     <!-- - <img src = "./auth-token-setting.png" style="width:320px"> -->
     - Once you've generated your access-token you need to specify it when managing repos
-        - `git clone https://SUPER_SECRET_KEY@github.com/nav-mohan/maccapster.git`
-        - `git remote add origin https:// [TOKEN]@github.com/[USER]/[REP0] `
+        - `git clone https:// [TOKEN]@github.com/[USER]/[REP0]`
+        - `git remote add origin https://[TOKEN]@github.com/[USER]/[REP0] `
 - Open up specific repos for collaborations
     - You can also open up a specific repo to contributions from a specific user. 
     - Navigate to your repo's __Settings__ and under __Access__ click on __Collaborations__. Now specify the users you wish to authorize to contribute directly into your repo. 
