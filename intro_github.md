@@ -314,21 +314,29 @@ New Feature
 ### Github Authentication
 - Before we setup the remote repository, any collaboration on the cloud must involve secure authentication. Github provides a few options for this.
 - SSH Keys
-    - `git clone git@github.com:nav-mohan/kim-api.git`
-- Github tokens
-    - <img src = "./auth-token-setting.png" style="width:320px">
-    - `git clone https://SUPER_SECRET_KEY@github.com/nav-mohan/maccapster.git`
-    - `git remote remove origin`
-    - `git remote add origin https:// [TOKEN]@github.com/[USER]/[REP0] `
-    - `git push`
-    - Clone repos using token based authentication (non public repos)
-    - `git clone https://<username>:<token>@github. com/<accountname>/<reponame>`
-- specific repos for collaborations
-## Creating a repo
-## Forking from original
-## Connecting your local-machine to your fork
-## Pushing to your Fork
-## opening a PR from your fork to original
+    - This is the easiest and recommended method. If you haven't already, generate your private-public ssh-keys. Then copy the contents of the public key (`.pub`) and paste it into 
+    - Navigate to your __Github Profile Settings__ and under the __Access Settings__, click on __SSH and GPG keys__. Then add a new SSH key. Give it a unique title and paste the contents of your `.pub` file into the textbox. 
+    - Once you've registered your SSH key, it becomes straightforward to access your repos  
+        - `git clone git@github.com:nav-mohan/kim-api.git`
+        - `git remote add origin git@github.com:nav-mohan/kim-api.git`
+
+- Github Auth Tokens
+    - Github Auth Tokens allow for a more granular access control and are typically used to perform advanced operations using the Github API (such as automation & CI/CD) but, they can also be used for performing regular git repo operations such as contributing code. 
+    - To generate your Auth Tokens navigate to your __Github Profile Settings__, and click on __Developer Settings__.  Then under __Personal Access Tokens__ click on __Fine-grained tokens__ or __Tokens (classic)__. 
+    - Both types of tokens have a different UI for configuring the access control restrictions of the token. You should be familiar with  
+    <!-- - <img src = "./auth-token-setting.png" style="width:320px"> -->
+    - Once you've generated your access-token you need to specify it when managing repos
+        - `git clone https://SUPER_SECRET_KEY@github.com/nav-mohan/maccapster.git`
+        - `git remote add origin https:// [TOKEN]@github.com/[USER]/[REP0] `
+- Open up specific repos for collaborations
+    - You can also open up a specific repo to contributions from a specific user. 
+    - Navigate to your repo's __Settings__ and under __Access__ click on __Collaborations__. Now specify the users you wish to authorize to contribute directly into your repo. 
+    
+### Creating a repo
+### Forking from original
+### Connecting your local-machine to your fork
+### Pushing to your Fork
+### opening a PR from your fork to original
 
 ## Merge-Conflict (online)
 - first resolve the merge-conflict on your *local* machine 
