@@ -334,11 +334,50 @@ New Feature
     - You can also open up a specific repo to contributions from a specific user. 
     - Navigate to your repo's __Settings__ and under __Access__ click on __Collaborations__. Now specify the users you wish to authorize to contribute directly into your repo. 
     
-### Creating a repo
+### Creating a repo on Github
+- To Create a new repo click on the <button style="background-color:green;color:white;padding:5px; border-radius:5px;border:0">New</button> button on your Github homepage and enter the required fields on the subsequent input form.
+    <img src = "./demo-online/new-repo.png" style="width:640px">
+
 ### Forking from original
+- Instead of creating a new repo, if you wish to  copy an existing repo into your Github account, click on the <button style="background-color:white;color:black;padding:2px 5px;border-radius:5px">Fork</button> button at the top right of the repo. 
+    <img src = "./demo-online/fork.png" style="width:640px">
+
 ### Connecting your local-machine to your fork
-### Pushing to your Fork
-### opening a PR from your fork to original
+- Once your repo is created/forked on Github, you need to connect your local machine to the Github cloud. Navigate to the repo location on your local machine and execute 
+    ```sh
+    # if you used ssh-keys for authenticating
+    git remote add origin git@github.com:[USERNAME]/[REPO]
+
+    # if you used Github tokens for authenticating 
+    git remote add origin https://[TOKEN]@github.com/[USERNAME]/[REP0]
+    ```
+    Here, `origin` is the name used by your local repo to refer to the remote repo. You could name it anything else if you wish but `origin` is a standard name.
+
+### Pushing to your Remote repo
+- Make some edits to the files in your local repo, stage the changes, and commit them. 
+- Push the changes to the remote repo by executing 
+    ```sh
+    git push origin
+    ```
+
+### Opening a PR from your fork to original
+- If your remote repo was forked from another repo and you wish to contribute your changes from your remote repo to the original repo, you can do so by opening a _pull request_. 
+
+- Click on the <button>Contribute</button> button and click on <button style = "background-color:green; color:white; padding:2px 10px; border:none; border-radius:2px"> Open pull Request </button> button
+
+    <img src = "./demo-online/contribute.png" style="width:480px">
+
+- The subsequent page will give you the options to choose the destination of the pull-request, i.e to which repository and branhc do you wish to contribute your changes to? 
+
+
+### Synchronize your fork with original
+- If you forked your repo from 
+- click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button> and update
+- then update your local repo by executing git fetch && git pull
+
+    <img src = "./demo-online/sync.png" style="width:480px">
+
+
 
 ## Merge-Conflict (online)
 - first resolve the merge-conflict on your *local* machine 
