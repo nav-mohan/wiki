@@ -313,37 +313,59 @@ New Feature
 
 ## Demo (online)
 - So far our work has been on our local machine. To collaborate with other developers we must setup a remote repository on Github and *track* it from our local repository. 
+
 ### Github Authentication
 - Before we setup the remote repository, any collaboration on the cloud must involve secure authentication. Github provides a few options for this.
-- SSH Keys
-    - This is the easiest and recommended method. If you haven't already, generate your private-public ssh-keys. Then copy the contents of the public key (`.pub`) and paste it into 
+- <b> SSH Keys </b>
+    - This is the easiest and recommended method. If you haven't already, generate your private-public ssh-keys. Then copy the contents of the public key (`.pub`) into your clipboard. 
     - Navigate to your __Github Profile Settings__ and under the __Access Settings__, click on __SSH and GPG keys__. Then add a new SSH key. Give it a unique title and paste the contents of your `.pub` file into the textbox. 
     - Once you've registered your SSH key, it becomes straightforward to access your repos  
-        - `git clone git@github.com:nav-mohan/kim-api.git`
-        - `git remote add origin git@github.com:nav-mohan/kim-api.git`
-
-- Github Auth Tokens
+        ```sh
+        # clone a remote repo into your local machine
+        git clone git@github.com:[USER]/[REPO]
+        
+        # connect your local repo with a specific remote repo
+        git remote add origin git@github.com:[USER]/[REPO]
+        ```
+- <b> Github Auth Tokens </b>
     - Github Auth Tokens allow for a more granular access control and are typically used to perform advanced operations using the Github API (such as automation & CI/CD) but, they can also be used for performing regular git repo operations such as contributing code. 
     - To generate your Auth Tokens navigate to your __Github Profile Settings__, and click on __Developer Settings__.  Then under __Personal Access Tokens__ click on __Fine-grained tokens__ or __Tokens (classic)__. 
     - Both types of tokens have a different UI for configuring the access control restrictions of the token. You should be familiar with  
     <!-- - <img src = "./auth-token-setting.png" style="width:320px"> -->
     - Once you've generated your access-token you need to specify it when managing repos
-        - `git clone https:// [TOKEN]@github.com/[USER]/[REP0]`
-        - `git remote add origin https://[TOKEN]@github.com/[USER]/[REP0] `
-- Open up specific repos for collaborations
+        ```sh
+        git clone https:// [TOKEN]@github.com/[USER]/[REP0]
+        git remote add origin https://[TOKEN]@github.com/[USER]/[REP0] 
+        ```
+
+- <b> Open up specific repos for collaborations </b>
     - You can also open up a specific repo to contributions from a specific user. 
     - Navigate to your repo's __Settings__ and under __Access__ click on __Collaborations__. Now specify the users you wish to authorize to contribute directly into your repo. 
     
 ### Creating a repo on Github
 - To Create a new repo click on the <button style="background-color:green;color:white;padding:5px; border-radius:5px;border:0">New</button> button on your Github homepage and enter the required fields on the subsequent input form.
+
     <img src = "./demo-online/new-repo.png" style="width:640px">
 
 ### Forking from original
 - Instead of creating a new repo, if you wish to  copy an existing repo into your Github account, click on the <button style="background-color:white;color:black;padding:2px 5px;border-radius:5px">Fork</button> button at the top right of the repo. 
-    <img src = "./demo-online/fork.png" style="width:640px">
 
-### Connecting your local-machine to your fork
-- Once your repo is created/forked on Github, you need to connect your local machine to the Github cloud. Navigate to the repo location on your local machine and execute 
+    <img src = "./demo-online/fork.png" style="width:640px">
+  
+
+- From hereon we will assume that we are dealing with a fork because that is the more realistic and interestic scenario. `remote` refers to your fork and `upstream` refers to the original repo.
+
+### Connecting your local-machine to your remote
+- Once your remote repo is established, you need to either create a new repo on your local machine or connect an existing local repo to the remote repo. 
+- To create a new repo on your local machine execute
+    ```sh
+    # if you used ssh-keys for authenticating
+    git clone git@github.com:[USERNAME]/[REPO]
+
+    # if you used Github tokens for authenticating 
+    git clone https://[TOKEN]@github.com/[USERNAME]/[REP0]
+    ```
+- To connect a pre-existing local repo to your remote repo, navigate to the repo directory on your local machine and execute 
     ```sh
     # if you used ssh-keys for authenticating
     git remote add origin git@github.com:[USERNAME]/[REPO]
@@ -351,17 +373,25 @@ New Feature
     # if you used Github tokens for authenticating 
     git remote add origin https://[TOKEN]@github.com/[USERNAME]/[REP0]
     ```
-    Here, `origin` is the name used by your local repo to refer to the remote repo. You could name it anything else if you wish but `origin` is a standard name.
+    Here, `origin` is the name used by your local repo to refer to the remote repo. You could name it anything else if you wish but `origin` is a standard name. You could connect your local repo to multiple remote repos 
+    
+    ```sh
+    # connect to kim-api fork of username Alice
+    git remote add origin git@github.com:alice/kim-api;
 
-### Pushing to your Remote repo
+    # connect to kim-api fork of username Bob
+    git remote add upstream git@github.com:bob/kim-api;
+    ```
+
+### Pushing changes to your remote repo
 - Make some edits to the files in your local repo, stage the changes, and commit them. 
 - Push the changes to the remote repo by executing 
     ```sh
     git push origin
     ```
 
-### Opening a PR from your fork to original
-- If your remote repo was forked from another repo and you wish to contribute your changes from your remote repo to the original repo, you can do so by opening a _pull request_. 
+### Pull-Requests: Contributing changes from your fork to the upstream
+- If your remote repo was forked from an upstream and you wish to contribute your changes from your remote repo to the upstream, you can do so by opening a _pull request_. 
 
 - Click on the <button>Contribute</button> button and click on <button style = "background-color:green; color:white; padding:2px 10px; border:none; border-radius:2px"> Open pull Request </button> button
 
@@ -371,16 +401,23 @@ New Feature
 
 
 ### Synchronize your fork with original
-- If you forked your repo from 
-- click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button> and update
-- then update your local repo by executing git fetch && git pull
-
+- If the upstream of your fork has had changes and you wish to update your fork (i.e synchronize) then click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button>. This will update your remote repo. 
+    
     <img src = "./demo-online/sync.png" style="width:480px">
 
-
+- Once your remote repo has been synchronized with the upstrea, you need to synchronize your local repo with your remote repo by executing
+    ```sh
+    git fetch;
+    git pull
+    ```
+- `git fetch` downloads new data (like commits, branches, and tags) from the remote repository, but it does not modify your working directory or current branch.
+- `git pull` merges the changes from the remote repo into the current branch on your local repo.
+- If you want to preview changes before merging, use `git fetch` followed by `git diff`.
 
 ## Merge-Conflict (online)
-- first resolve the merge-conflict on your *local* machine 
+- Resolving an online merge-conflict is very similar to the previously explored offfline merge-conflict but there are some extra steps. 
+- Online merge-conflicts usually arise when your attempting to merge a pull-request from your `remote` to the `upstream`. 
+- To resolve this, first you must resolve the merge-confict on your local machine. 
 - if you are pushing to a fork, then first sync your forked repo with the upstream
 - update your *local* `main` branch first and then merge `main` into `work_branch`
 - the direction of this merge is the opposite of what you would usually do
