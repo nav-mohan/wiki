@@ -353,10 +353,13 @@ New Feature
     <img src = "./demo-online/fork.png" style="width:640px">
   
 
-- From hereon we will assume that we are dealing with a fork because that is the more realistic and interestic scenario. `remote` refers to your fork and `upstream` refers to the original repo.
+> From hereon we will assume that we are dealing with a fork because that is the more realistic and interesting scenario. 
+>    - `local` refers to the Git repo on your local machine.
+>    - `upstream` refers to the original Github repo that you forked from. 
+>    - `remote` refers to your fork of the original Github repo. 
 
-### Connecting your local-machine to your remote
-- Once your remote repo is established, you need to either create a new repo on your local machine or connect an existing local repo to the remote repo. 
+### Connecting your `local` Git repo to your `origin` Github repo
+- Once your `origin` repo is established, you need to either create a new repo on your local machine or connect an existing local repo to the remote repo. 
 - To create a new repo on your local machine execute
     ```sh
     # if you used ssh-keys for authenticating
@@ -365,7 +368,7 @@ New Feature
     # if you used Github tokens for authenticating 
     git clone https://[TOKEN]@github.com/[USERNAME]/[REP0]
     ```
-- To connect a pre-existing local repo to your remote repo, navigate to the repo directory on your local machine and execute 
+- To connect an existing local repo to your remote repo, navigate to the repo directory on your local machine and execute 
     ```sh
     # if you used ssh-keys for authenticating
     git remote add origin git@github.com:[USERNAME]/[REPO]
@@ -373,57 +376,80 @@ New Feature
     # if you used Github tokens for authenticating 
     git remote add origin https://[TOKEN]@github.com/[USERNAME]/[REP0]
     ```
-    Here, `origin` is the name used by your local repo to refer to the remote repo. You could name it anything else if you wish but `origin` is a standard name. You could connect your local repo to multiple remote repos 
-    
+    Here, `origin` is the name used by your local repo to refer to the remote repo. You could name it anything else if you wish but `origin` is a standard name.
+- You may connect your `local` git repo to multiple Github repos. This will be useful and (sometimes necessary) when your `origin` repo was forked from an `upstream` repo. For example, lets say username Bob was the original creator of a Github repo `demo_repo` and username Alice has forked Bob's Github repo into her own repo. In this case, Alice would connect her local repo to her Github fork as well as Bob's Github repo. 
     ```sh
-    # connect to kim-api fork of username Alice
-    git remote add origin git@github.com:alice/kim-api;
+    # connect to demo_repo fork of Alice 
+    git remote add origin git@github.com:alice/demo_repo;
 
-    # connect to kim-api fork of username Bob
-    git remote add upstream git@github.com:bob/kim-api;
+    # connect to original demo_repo repo of Bob
+    git remote add upstream git@github.com:bob/demo_repo;
     ```
+- To list all the remote repos that your `local` repo is connected to, execute `git remote --verbose`
+
+    <img src = "./demo-online/remotes.png" style="width:480px">
+
 
 ### Pushing changes to your remote repo
-- Make some edits to the files in your local repo, stage the changes, and commit them. 
-- Push the changes to the remote repo by executing 
+- Make some edits to the files in your `local` repo, stage the changes, and commit them. 
+- Push the changes to the `origin` repo by executing 
     ```sh
     git push origin
     ```
 
 ### Pull-Requests: Contributing changes from your fork to the upstream
-- If your remote repo was forked from an upstream and you wish to contribute your changes from your remote repo to the upstream, you can do so by opening a _pull request_. 
+- If your `origin` repo was forked from an `upstream` and you wish to contribute your changes from your `origin` repo to the `upstream`, you can do so by opening a _pull request_. 
 
 - Click on the <button>Contribute</button> button and click on <button style = "background-color:green; color:white; padding:2px 10px; border:none; border-radius:2px"> Open pull Request </button> button
 
     <img src = "./demo-online/contribute.png" style="width:480px">
 
-- The subsequent page will give you the options to choose the destination of the pull-request, i.e to which repository and branhc do you wish to contribute your changes to? 
+- On the subsequent page you can set the source and target of the pull-request.
+
+    <img src = "./demo-online/pull-request.png" style="width:480px">
 
 
 ### Synchronize your fork with original
-- If the upstream of your fork has had changes and you wish to update your fork (i.e synchronize) then click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button>. This will update your remote repo. 
+- If the `upstream` of your fork has had changes and you wish to update your `remote` then click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button>. 
     
     <img src = "./demo-online/sync.png" style="width:480px">
 
-- Once your remote repo has been synchronized with the upstrea, you need to synchronize your local repo with your remote repo by executing
+- Once your `origin` repo has been synchronized with the `upstream`, you need to synchronize your `local` repo with your `origin` repo by executing
     ```sh
-    git fetch;
-    git pull
+    git fetch origin/topic_branch;
+    git merge origin/topic_branch;
+
+    # git pull combines git fetch and git merge
+    git pull origin/topic_branch;
     ```
-- `git fetch` downloads new data (like commits, branches, and tags) from the remote repository, but it does not modify your working directory or current branch.
-- `git pull` merges the changes from the remote repo into the current branch on your local repo.
+- `git fetch` downloads new data (like commits, branches, and tags) from the `origin` repository, but it does not modify your working directory or current branch.
+- `git merge` merges the changes from the remote repo into the current branch on your `local` repo.
+- `git pull` calls both `git fetch` and `git merge`. 
 - If you want to preview changes before merging, use `git fetch` followed by `git diff`.
 
 ## Merge-Conflict (online)
-- Resolving an online merge-conflict is very similar to the previously explored offfline merge-conflict but there are some extra steps. 
-- Online merge-conflicts usually arise when your attempting to merge a pull-request from your `remote` to the `upstream`. 
-- To resolve this, first you must resolve the merge-confict on your local machine. 
-- if you are pushing to a fork, then first sync your forked repo with the upstream
-- update your *local* `main` branch first and then merge `main` into `work_branch`
-- the direction of this merge is the opposite of what you would usually do
-- by merging `main` into `work_branch` you are "updating" your *local* `work_branch` first
-- now resolve the merge-conflict *locally*, the same way as before.
-- once `main` has been incorporated into *local* `work_branch`, push your changes to your *remote* `work_branch`.
+- Resolving an online merge-conflict is very similar to the previously explored offline merge-conflict but there are some extra steps. 
+- Online merge-conflicts usually arise when you're attempting to merge a pull-request from your `remote` to the `upstream`. 
+    > There is also the merge-conflict that arises within a single repo when merging a `topic_branch` into `main` branch. But, this case is identical to the offline merge-conflict we saw earlier.  
+
+- Suppose you're working on `local/topic_branch` and you wish to contribute your changes to `upstream/main` via your fork at `origin/topic_branch`. The usual workflow would involve pushing changes from `local/topic_branch` into `origin/topic_branch` and then opening a pull-request from `origin/topic_branch` into `upstream/main`. However, there is a merge-conflict between `origin/topic_branch` and `upstream/main`. 
+- To resolve this, first you must resolve the merge-confict on your `local` repo. 
+- To resolve this merge-conflict, begin by adding the `upstream` to your `local` repo (if you haven't already)
+    ```sh
+    git remote add upstream <URL>
+    ```
+- Now merge the `upstream/main` directly into your `local/topic_branch` repo. By merging `upstream/main` into `local/topic_branch` you are updating your `local/topic_branch` first. 
+    ```sh
+    git fetch upstream; # get latest upstream
+    git merge upstream/main; # merge upstream/main -> local/topic_branch
+    ```
+    > NOTE: The direction of this merge is the opposite of what you would usually do. 
+- Git will alert you to the merge-conflict and halt the merge operation midway. Now resolve the merge-conflict *locally*, by following the same steps as the offline scenario.
+- Once `upstream/main` has been merged into `local/topic_branch` you may now push your `local/topic_branch` into your `origin/topic_branch`. Remember to use the `-f` flag for `force-push` because `local/topic_branch` and `origin/topic_branch` have _diverged_. 
+    ```sh
+    # use -f flag for force-push 
+    git push -f origin
+    ```
 
 ## Rewinding the `HEAD`
 - Notice the <span style = "color:rgb(30, 182, 213);background-color:black;font-weight:600">HEAD -></span> <span style = "color:rgb(61, 213, 30);background-color:black;font-weight:600"> main </span>. Git stores commits as a [**linked-list**](https://en.wikipedia.org/wiki/Linked_list) and `HEAD` is the current pointer of the linked-list. Currently, our `HEAD` sits at the latest commit <span style = "color:rgb(213, 186, 30);background-color:black">e4fbe... </span> of the `main` branch. 
