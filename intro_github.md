@@ -183,7 +183,7 @@ We make extensive use of GitHub's issue tracking system to manage projects in th
     
     Observe that Git does a *Fast-forward* merge. This happens because no new commits were pushed/merged into `main` before we merged `feature/append-new-line`. The two branches are said to have a *linear history*.
     
-    > <img src = "./demo-offline/non-linear-history.drawio.svg" style="width:480px;background-color:black">
+    > <img src = "./demo-offline/non-linear-history.drawio.png" style="width:480px;background-color:black">
     >
     > In the above diagram, `bugfix` branch has a *linear* history with `main` whereas `feature` branch has a *non-linear* history with `main`. A fast-forward merge merely involves updating the next-pointers on the linked-list. So `M1`'s next-pointer is directed at `B1`.
 
