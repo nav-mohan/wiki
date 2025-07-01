@@ -410,7 +410,7 @@ New Feature
 
 
 ### Synchronize your fork with original
-- If the `upstream` of your fork has had changes and you wish to update your `remote` then click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button>. 
+- If the `upstream` of your fork has had changes and you wish to update your `origin` then click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button>. 
     
     <img src = "./demo-online/sync.png" style="width:480px">
 
@@ -429,19 +429,19 @@ New Feature
 
 ## Merge-Conflict (online)
 - Resolving an online merge-conflict is very similar to the previously explored offline merge-conflict but there are some extra steps. 
-- Online merge-conflicts usually arise when you're attempting to merge a pull-request from your `remote` to the `upstream`. 
+- Online merge-conflicts usually arise when you're attempting to merge a pull-request from your `origin` to the `upstream`. 
     > There is also the merge-conflict that arises within a single repo when merging a `topic_branch` into `main` branch. But, this case is identical to the offline merge-conflict we saw earlier.  
 
 - Suppose you're working on `local/topic_branch` and you wish to contribute your changes to `upstream/main` via your fork at `origin/topic_branch`. The usual workflow would involve pushing changes from `local/topic_branch` into `origin/topic_branch` and then opening a pull-request from `origin/topic_branch` into `upstream/main`. However, there is a merge-conflict between `origin/topic_branch` and `upstream/main`. 
 - To resolve this, first you must resolve the merge-confict on your `local` repo. 
-- To resolve this merge-conflict, begin by adding the `upstream` to your `local` repo (if you haven't already)
+- If you haven't already, add the `upstream` to your `local` repo's list of remotes.
     ```sh
     git remote add upstream <URL>
     ```
 - Now merge the `upstream/main` directly into your `local/topic_branch` repo. By merging `upstream/main` into `local/topic_branch` you are updating your `local/topic_branch` first. 
     ```sh
-    git fetch upstream; # get latest upstream
-    git merge upstream/main; # merge upstream/main -> local/topic_branch
+    git fetch upstream;         # get latest upstream
+    git merge upstream/main;    # merge upstream/main -> local/topic_branch
     ```
     > NOTE: The direction of this merge is the opposite of what you would usually do. 
 - Git will alert you to the merge-conflict and halt the merge operation midway. Now resolve the merge-conflict *locally*, by following the same steps as the offline scenario.
