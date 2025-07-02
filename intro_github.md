@@ -536,6 +536,9 @@ New Feature
 
 ### Rebasing your branch with `git rebase`
 - `git rebase` is a versatile and powerful command for achieving a cleaner, linear commit-history. In this section we will explore some common use cases for `git rebase`. 
+> NOTE: Rebasing essentially rewinds the branch to an earlier commit and then reapplies the commits with specfied modifications. This could result in conflicts in which case Git will halt the rebase process. Once you've resolved the conflict you can resume the rebase process by executing `git rebase --continue`. Or, if you wish to terminate the rebasing process and revert all the changes made by the rebasing process, execute `git rebase --abort`. 
+
+> NOTE: Rebasing your `local` branch will always cause it to diverge from the `origin` branch because they now have completely different commit history. To update your `origin` branch, you need to __force push__ from your `local` by executing `git push -f origin`. 
 
 - #### 1) Incorporate `upstream` into `local` before pushing:
     - Use `git rebase` to incorporate changes from `upstream` into `local` before pushing. By directly pulling in changes from `upstream` into `local` your `local` and `upstream` will have a linear history thus avoiding merge-commits at the time of merge. Consider the below branching diagram - `main` was branched off into `feature` (green) and `bugfix` (red). The `bugfix` branch was merged before `feature`. Now, merging `feature` into `main` results in a merge-commit `M4`. To avoid this, `feature` branch can incorporate the commits `B1` and `B2` to acheive a linear commit-history with `main` as shown in the bottom diagram. 
@@ -631,14 +634,52 @@ New Feature
         <img src = "./commit-history/squash-4.png" style="width:480px">
 
 - #### 5) To `reorder` commit history
+    - Consider the following 3 recent commits to the `kim-api`'s  `devel` branch. 
+        - __<span style = "color:rgb(213, 186, 30);background-color:black">f7b004ef</span> "Fix typo in NEWS"__. 
+        - __<span style = "color:rgb(213, 186, 30);background-color:black">9ed96a89</span> "Bump version to v2.4.2"__. 
+        - __<span style = "color:rgb(213, 186, 30);background-color:black">fbadf754</span> "Update NEWS for v2.4.1"__. 
+    - The commmits __<span style = "color:rgb(213, 186, 30);background-color:black">f7b004ef</span>__ and __<span style = "color:rgb(213, 186, 30);background-color:black">fbadf754</span>__ modify the __NEWS__ document but they're interrupted by the commit __<span style = "color:rgb(213, 186, 30);background-color:black">9ed96a89</span>__ which bumps the version number. It would be ideal if the two commits modifying the NEWS document could be reordered next to each other. 
+    
+    - We need to rebase our branch to the commit before __<span style = "color:rgb(213, 186, 30);background-color:black">fbadf754</span>__ i.e __<span style = "color:rgb(213, 186, 30);background-color:black">d35b32ec</span> "Improve create-package script"__. 
+    ```sh
+    git rebase -i d35b32ec;
+    ```
+    - In the text-editor window, rearrange the order of the commits by cutting (`CTRL+K`) and pasting (`CTRL+U`) them into the desired order. 
+    
+        <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; text-align: center;">
+        <thead>
+            <tr>
+            <th style="border: 1px solid #ccc;">Original</th>
+            <th style="border: 1px solid #ccc;">Reordered</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td style="border: 1px solid #ccc;"><img src="./commit-history/reorder-1.png" width="480px"></td>
+            <td style="border: 1px solid #ccc;"><img src="./commit-history/reorder-2.png" width="480px"></td>
+            </tr>
+        </tbody>
+        </table>
+    
+    - After reordering the commits, Save and Exit the text-editor. 
+    - Confirm that the commits have been squashed 
+        
+        <img src = "./commit-history/reorder-3.png" style="width:480px">
+
+        <img src = "./commit-history/reorder-4.png" style="width:480px">
     
 - #### 6) To `edit` a specific commit
+    - You can use `git rebase` to modify the contents of an existing commit. 
+    - As before, rewind the branch to a commit before the commit you wish to edit. 
+    - In the text-editor window,  replace the prefix `pick` with `edit` for the commits you wish to edit. 
+    - Save and Exit the text-editor. 
+    - Git will start applying the commits one by one and when it gets to the commit you prefixed with `edit`, it will halt the rebase process.
+    - Now you can open VSCode and make any further edits to the codebase that you wish to include in the commit. 
+    - Once you've made the required edits execute `git rebase --continue`. 
 
 
+## Rebase Exercise 
 
-### Force-Push your changes with `git push -f`
-
-### Rebase Exercise 
 
 ## Best Practices
 - **Write issues!**. This is a tremendously useful feature. 
@@ -678,5 +719,6 @@ New Feature
     cd lib/your_preferred_directory-name_for_submodule
     git submodule init
     git submodule update
+    git diff > work_in_progress.diff;
 
 ## Bonus - github.io static webpage
