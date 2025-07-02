@@ -533,13 +533,110 @@ New Feature
 - `git reset <COMMIT-HASH>` is different from `git checkout <COMMIT-HASH>` because `reset` modifies the commit history, (`--hard` also modifies the code-base), and points the `HEAD` to the new tip. Whereas `checkout` leaves the branch and code-base unchanged but merely points the `HEAD` to a past commit.
 
 ### Rebasing your branch with `git rebase`
-    - edit/reorder the commit history - reword, edit, drop, pick, squash
-    - linearize the history
-<img src = "./commit-history/rebasing.png" style="width:480px">
+- `git rebase` is a versatile and powerful command for achieving a cleaner, linear commit-history. In this section we will explore some common use cases for `git rebase`. 
+
+- #### 1) Incorporate `upstream` into `local` before pushing:
+    - Use `git rebase` to incorporate changes from `upstream` into `local` before pushing. By directly pulling in changes from `upstream` into `local` your `local` and `upstream` will have a linear history thus avoiding merge-commits at the time of merge. Consider the below branching diagram - `main` was branched off into `feature` (green) and `bugfix` (red). The `bugfix` branch was merged before `feature`. Now, merging `feature` into `main` results in a merge-commit `M4`. To avoid this, `feature` branch can incorporate the commits `B1` and `B2` to acheive a linear commit-history with `main` as shown in the bottom diagram. 
+
+        <img src = "./commit-history/rebasing.png" style="width:640px">
+
+    - The overall workflow would look something like:
+       ```sh
+       git branch feature;      # create the new branch
+       git checkout feature;    # checkout the feature branch
+       git commit F1;           # modify code base feature branch
+       git commit F2;           # modify code base feature branch
+       git commit F3;           # modify code base feature branch
+       git checkout main;       # switch to main branch
+       git pull;                # update the main branch
+       git checkout feature;    # switch back to feature branch
+       git rebase main;         # rebase feature on top of latest main
+       ```
+
+    - If `B1`, `B2` touched the same code-space as `F1`, `F2`, `F3` then this will likely result in a merge-conflict at the time of rebasing. Git will halt the rebase process and alert you to the merge-conflict. Once you've resolved the merge-conflict you may resume the rebasing process by executing
+        ```sh
+        git rebase --continue; # resume the rebase after resolving merge-conflict
+        ```
+    - The original commits `F1`, `F2`, and `F3` have now been replaced with new commits `F1*`, `F2*`, `F3*`. These commits may or may not contain the exact same _diff_  (depending on the changes from `B1`,`B2`) however they are treated as _entirely new commits_ with different commit hashes from before. 
+
+- #### 2) To `drop` commits
+    - `git rebase` can be used to drop commits. 
+    - Example: Consider the `devel` branch of `kim-api` repo. 
+
+        <img src = "./commit-history/drop-1.png" style="width:480px">
+    - Suppose we want to drop the commit __<span style = "color:rgb(213, 186, 30);background-color:black">f7b004ef</span> "Fix typo in NEWS"__
+    - Begin by jotting down the commit-hash of the previous commit __<span style = "color:rgb(213, 186, 30);background-color:black">9ed96a89</span> "Bump version to v2.4.2"__ and execute 
+    ```sh
+    git rebase -i 9ed96a89; # the commit-hash of the commit prior to our commit of interest
+    ```
+    - This will open up our text-editor (Nano in this case) listing out all recent commits upto and including our commit of interest. Note that every commit has the prefix `pick`. 
+
+        <img src = "./commit-history/drop-2.png" style="width:480px">
+
+    - To drop the commit, modify the prefix `pick` to `drop`. 
+    - All the commits with the prefix `pick` are the commits that we wish to keep unchanged. 
+    - Save (`CTRL+O`) and Exit(`CTRL+X`) the text-editor. 
+    - Check the commit history to confirm that the commit has been dropped 
+
+        <img src = "./commit-history/drop-3.png" style="width:480px">
+
+    - The `local` repo diverges from the `origin` repo because the `local` repo has 4 commits following __<span style = "color:rgb(213, 186, 30);background-color:black">9ed96a89</span> "Bump version to v2.4.2"__ whereas the `origin` repo has 5 commits. 
+
+        <img src = "./commit-history/drop-4.png" style="width:480px">
+    - To push your updated `local` branch into the `origin` you must _force push_  your changes (This is purely for demonstration purposes - do not actually modify the commmit history of the `kim-api` repo)
+        ```sh
+        git push -f origin; # the -f flag to force-push
+        ```
+    > If you followed through on the above steps, your `kim-api` repo is now diverging from the `upstream`. To rectify this execute the following command
+
+        ```sh
+        git reset --hard 9ed96a89;  # hard reset to the latest common ancestor
+        git pull;                   # pull from upstream into local
+        ``` 
+
+- #### 3) To `reword` commit messages
+    - If you wish to modify the commit message of  __<span style = "color:rgb(213, 186, 30);background-color:black">f7b004ef</span> "Fix typo in NEWS"__ we begin by jotting down the commit-hash of the previous commit __<span style = "color:rgb(213, 186, 30);background-color:black">9ed96a89</span> "Bump version to v2.4.2"__ and executing `git rebase -i 9ed96a89`
+    - In the text-editor, replace the prefix `pick` with `reword` and Save and Exit the editor. 
+        
+        <img src = "./commit-history/reword-1.png" style="width:480px">
+    - This will open a subsequent text-editor window where you may edit the commit message for __<span style = "color:rgb(213, 186, 30);background-color:black">f7b004ef</span> "Fix typo in NEWS"__. For example here I've modified it to __"Fix Multiple Typo in the NEWS document"__. Save and Exit this editor. 
+        
+        <img src = "./commit-history/reword-2.png" style="width:480px">
+    - Confirm that the commit message has been modified. 
+        
+        <img src = "./commit-history/reword-3.png" style="width:480px">
+        <img src = "./commit-history/reword-4.png" style="width:480px">
+
+
+
+- #### 4) To `squash` multiple commits into a single commit
+    - Consider the following 3 recent commits to the `kim-api`'s  `devel`. They modify the logging code. 
+        - __<span style = "color:rgb(213, 186, 30);background-color:black">66a0e94b</span> "Adjustments to logging code"__. 
+        - __<span style = "color:rgb(213, 186, 30);background-color:black">f18e2feb</span> "Add library path to output of collections management 'list'"__. 
+        - __<span style = "color:rgb(213, 186, 30);background-color:black">93ed6e9d</span> "Added info. logging of shared library paths"__. 
+    - These 3 commits modify the logging code. So, they could be combined into a single monolithic commit to reduce the commit-history. 
+    - Begin by executing `git rebase -i f7b004ef` where __<span style = "color:rgb(213, 186, 30);background-color:black">f7b004ef</span>__ is the commit-hash of the commit before the first commit __<span style = "color:rgb(213, 186, 30);background-color:black">93ed6e9d</span> "Added info. logging of shared library paths"__. 
+    - At the text-editor window, replace the prefix `pick` with `squash` for all the commits that you wish to collape into the previous commit. Save and Exit the text-editor. 
+        
+        <img src = "./commit-history/squash-1.png" style="width:480px">
+    - A subsequent text-editor window will open. In this window, comment out all the commits that you wish to squash by prefixing them with a `#`. Save and Exit the text-editor window.
+
+        <img src = "./commit-history/squash-2.png" style="width:480px">
+
+    - Confirm that the commits have been squashed 
+        
+        <img src = "./commit-history/squash-3.png" style="width:480px">
+        <img src = "./commit-history/squash-4.png" style="width:480px">
+
+- #### 5) To `reorder` commit history
+    
+- #### 6) To `edit` a specific commit
+
+
 
 ### Force-Push your changes with `git push -f`
 
-## Rebase Exercise from Weston's QPS Git problem
+### Rebase Exercise 
 
 ## Best Practices
 - **Write issues!**. This is a tremendously useful feature. 
