@@ -337,11 +337,13 @@ New Feature
         git clone https:// [TOKEN]@github.com/[USER]/[REP0]
         git remote add origin https://[TOKEN]@github.com/[USER]/[REP0] 
         ```
+    > NOTE: On Hydra you might have to use Tokens because Hydra blocks SSH connections to Github but permits HTTPS connections.
 
 - <b> Open up specific repos for collaborations </b>
     - You can also open up a specific repo to contributions from a specific user. 
     - Navigate to your repo's __Settings__ and under __Access__ click on __Collaborations__. Now specify the users you wish to authorize to contribute directly into your repo. 
-    
+
+
 ### Creating a repo on Github
 - To Create a new repo click on the <button style="background-color:green;color:white;padding:5px; border-radius:5px;border:0">New</button> button on your Github homepage and enter the required fields on the subsequent input form.
 
