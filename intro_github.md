@@ -496,11 +496,37 @@ New Feature
     - `git reset --mixed <COMMIT-HASH>` - This resets the `HEAD` to the `<COMMIT-HASH>` and all the reset changes (the changes between `<COMMIT-HASH>` and the latest commit) are _unstaged_ and the working directory is unchanged.
     - `git reset --hard <COMMIT-HASH>` - This resets the `HEAD` to the `<COMMIT-HASH>` and all the reset changes (the changes between `<COMMIT-HASH>` and the latest commit) are deleted from the working directory. 
     
-
-    |              | unchanged                                            | soft reset                                            | mixed reset                                            | hard reset                                            |
-    |--------------|------------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------|
-    | Branch Status | <img src="./commit-history/resets/original-status.png" width="480"> | <img src="./commit-history/resets/soft-status.png" width="480">        | <img src="./commit-history/resets/mixed-status.png" width="480">       | <img src="./commit-history/resets/hard-status.png" width="480">        |
-    | Log History   | <img src="./commit-history/resets/original-log-10.png" width="480"> | <img src="./commit-history/resets/soft-log-8.png" width="480">         | <img src="./commit-history/resets/mixed-log-8.png" width="480">        | <img src="./commit-history/resets/hard-log-8.png" width="480">         |
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; text-align: center;">
+  <thead>
+    <tr>
+      <th style="border: 1px solid #ccc;">Reset Type</th>
+      <th style="border: 1px solid #ccc;">Branch Status</th>
+      <th style="border: 1px solid #ccc;">Log History</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid #ccc;">Unchanged</td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/original-status.png" width="480"></td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/original-log-10.png" width="480"></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc;">Soft Reset</td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/soft-status.png" width="480"></td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/soft-log-8.png" width="480"></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc;">Mixed Reset</td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/mixed-status.png" width="480"></td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/mixed-log-8.png" width="480"></td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc;">Hard Reset</td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/hard-status.png" width="480"></td>
+      <td style="border: 1px solid #ccc;"><img src="./commit-history/resets/hard-log-8.png" width="480"></td>
+    </tr>
+  </tbody>
+</table>
 
 
 
