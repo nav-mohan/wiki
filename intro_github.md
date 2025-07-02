@@ -450,33 +450,68 @@ New Feature
     # use -f flag for force-push 
     git push -f origin
     ```
+## Exploring \& modifying the commit history
+### Detaching the `HEAD` with `git checkout`
+- Execute `git log` command on any repo. For example, here are the logs of the `devel` branch of the `kim-api` repo
+    
+    <img src = "./commit-history/linked-list.png" style="width:480px">
 
-## Rewinding the `HEAD`
-- Notice the <span style = "color:rgb(30, 182, 213);background-color:black;font-weight:600">HEAD -></span> <span style = "color:rgb(61, 213, 30);background-color:black;font-weight:600"> main </span>. Git stores commits as a [**linked-list**](https://en.wikipedia.org/wiki/Linked_list) and `HEAD` is the current pointer of the linked-list. Currently, our `HEAD` sits at the latest commit <span style = "color:rgb(213, 186, 30);background-color:black">e4fbe... </span> of the `main` branch. 
-- Modifying the position of the `HEAD` can be useful when hunting for the source of a bug, for example: 
+- Notice the <span style = "color:rgb(30, 182, 213);background-color:black;font-weight:600">HEAD -></span> <span style = "color:rgb(61, 213, 30);background-color:black;font-weight:600"> devel </span>. Git stores commits as a [**linked-list**](https://en.wikipedia.org/wiki/Linked_list) and `HEAD` is the current pointer of the linked-list. Currently, our `HEAD` sits at the latest commit <span style = "color:rgb(213, 186, 30);background-color:black">f7b004ef </span> of the `devel` branch. 
+- Modifying the position of the `HEAD` can be useful when hunting for the source of a bug. For example, if I wish to investigate whether commit <span style = "color:rgb(213, 186, 30);background-color:black">8c9a1099</span> introduced a bug, I could rewind to the commit prior that: 
     ```sh
-    git checkout e1f518;    # rewind head to this commit
+    git checkout 04d886a1;    # rewind head to this commit
     ```
-- Now build your code (if required), test it, and confirm the presence/absence of the bug at this point in history. When satisfied you can reset your `HEAD` back to the latest commit
+- Now test it (build the code first if required) to confirm the presence/absence of the bug at this point in history. When satisfied you can reset your `HEAD` back to the latest commit
     ```sh
     git switch -;           # return HEAD back to latest commit
     ```
 - You could also rewind to a past commit, create a new branch, and start working from a previous point in history. This is useful when addressing emergency hot-fixes.
+    ```sh
+    git checkout <commit-hash>;     # the last commit where everything worked fine 
+    git branch "bugfix/issue#95-fix-regression-in-parameter-files";     # create a new branch from this point 
+    git switch -; # return the HEAD back to it's original position
+    git checkout "bugfix/issue#95-fix-regression-in-parameter-files";   # checkout the new branch and start working 
     ```
-    git checkout <commit-hash>;
-    git branch bugfix/issue#95-fix-regression-in-parameter-files;
-    git checkout bugfix/issue#95-fix-regression-in-parameter-files;
+    Once you've addressed the bugfix, you should do a *force-push* to the `origin`. We will dive deeper into force-push in the section about *rebasing* but essentially force-push overwrites the commit-history from the last common ancestor onwards, which in this case would be `<commit-hash>`.
+
+    > Upon executing `git checkout <COMMIT-HASH>` Git will alert you "You are in _detached `HEAD`_ state."  
+
+    <img src = "./commit-history/detached-head.png" style="width:480px">
+    
+    >   - The branch that you were on is unmodified but the `HEAD` of the linked-list has been detached and now points to `<COMMIT-HASH>`. 
+    >   - Technically, you are not on _any branch_ because a branch is defined by the linked-list of commits terminating at the `HEAD`. 
+    >   - When you're in _detached `HEAD`_ state, you cannot create new commits on the branch. If you want to create new commits you'll have to create a new branch, checkout to that branch and then create commits on that new branch.
+
+### Undo Changes with `git reset`
+- `git reset` is a powerful Git command to **undo changes**. It moves the `HEAD` to a previous commit in history.
+    ```sh
+    # to reset to a specific commit
+    git reset <COMMIT-HASH>
+
+    # to go back N commits
+    git reset HEAD~N
     ```
-    Once you've addressed the bugfix, you should do a *force-push* to the remote. We will dive deeper into force-push in the section about *rebasing* but essentially force-push overwrites the commit-history from the last common ancestor onwards, which in this case would be `<commit-hash>`.
+- There are 3 types of `git reset`
+    - `git reset --soft <COMMIT-HASH>` - This resets the `HEAD` to the `<COMMIT-HASH>` and all the reset changes (the changes between `<COMMIT-HASH>` and the latest commit) are _staged_ and the working directory is unchanged. 
+    - `git reset --mixed <COMMIT-HASH>` - This resets the `HEAD` to the `<COMMIT-HASH>` and all the reset changes (the changes between `<COMMIT-HASH>` and the latest commit) are _unstaged_ and the working directory is unchanged.
+    - `git reset --hard <COMMIT-HASH>` - This resets the `HEAD` to the `<COMMIT-HASH>` and all the reset changes (the changes between `<COMMIT-HASH>` and the latest commit) are deleted from the working directory. 
+    
 
-## Undo Changes (offline simple, online force-push)
-- `git reset` is a powerful Git command to **undo changes**. 
+    |              | unchanged                                            | soft reset                                            | mixed reset                                            | hard reset                                            |
+    |--------------|------------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------|--------------------------------------------------------|
+    | Branch Status | <img src="./commit-history/resets/original-status.png" width="480"> | <img src="./commit-history/resets/soft-status.png" width="480">        | <img src="./commit-history/resets/mixed-status.png" width="480">       | <img src="./commit-history/resets/hard-status.png" width="480">        |
+    | Log History   | <img src="./commit-history/resets/original-log-10.png" width="480"> | <img src="./commit-history/resets/soft-log-8.png" width="480">         | <img src="./commit-history/resets/mixed-log-8.png" width="480">        | <img src="./commit-history/resets/hard-log-8.png" width="480">         |
 
 
 
-## Rebasing & Modifying History
-### Rebasing
-### Force-Push
+- `git reset <COMMIT-HASH>` is different from `git checkout <COMMIT-HASH>` because `reset` modifies the commit history, (`--hard` also modifies the code-base), and points the `HEAD` to the new tip. Whereas `checkout` leaves the branch and code-base unchanged but merely points the `HEAD` to a past commit.
+
+### Rebasing your branch with `git rebase`
+    - edit/reorder the commit history - reword, edit, drop, pick, squash
+    - linearize the history
+<img src = "./commit-history/rebasing.png" style="width:480px">
+
+### Force-Push your changes with `git push -f`
 
 ## Rebase Exercise from Weston's QPS Git problem
 
