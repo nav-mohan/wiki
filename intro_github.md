@@ -700,25 +700,41 @@ New Feature
     
 
 ## Cheat Sheet
-- git status, git log, git log --oneline
-- git cherry-pick commit_hash
-- git restore /path/to/file, git restore /path/to/folder
-- git restore --staged /path/to/file, git restore --staged /path/to/folder
-- git reset --soft commit_hash, git reset --soft HEAD~N # move head to commit_hash, N-commits back 
-- git reset --hard commit_hash, git reset --hard HEAD~N # move head to commit_hash, N-commits back 
-- git clone link, git submodule --recursive link
-    - To get the latest development state:
-    - git clone --recursive link
-    - If your git version does not support -- recursive clones, do
-    - git clone https://gitlab.xiph.org/xiph/icecast-server.git
-    - cd icecast-server
-    - git submodule update --init
-    - git submodule add --force <https://github.com/url/of/submodule> lib/your_preferred_directory-name_for_submodule
-    - this will create a new folder <your_preferred_directory-name_for_submodule> within the lib directory
-    - some of the folders within this new folder might appear to be empty. that's probably because the submodule depends on further submodule. We need to initialize and update the submodule to bring in all the subsubmodules
-    cd lib/your_preferred_directory-name_for_submodule
-    git submodule init
-    git submodule update
-    git diff > work_in_progress.diff;
+- Check the status and history of your repo: 
+    ```sh
+    git status; 
+    git log; 
+    git log --oneline; 
+    git log --oneline -n 10; # show last 10 commits
+    ```
+    
+- Cherry-Pick a commit from another branch into your branch
+    ```sh
+    git cherry-pick <commit-hash>; #<commit-hash> refers to a commit on another branch
+    ```
 
+- Undo changes to your file/folder before you've staged them 
+    ```sh
+    git restore </path/to/file>; # for a specific file
+    git restore </path/to/folder>; # for an entire folder
+    ```
+- Un-stage your files if you've mistakenly staged them 
+    ```sh
+    git restore --staged </path/to/file>;
+    git restore --staged </path/to/folder>;
+    ```
+- Rewind commit-history to an earlier commit.
+    ```sh
+    git reset --mixed <commit-hash>; # unstage the changes
+    git reset --soft <commit-hash>; # keep changes staged
+    git reset --hard <commit-hash>; # undo changes to file
+    
+    git reset --<hard/mixed/soft> HEAD~N; # move head to commit_hash, N-commits back 
+    ```
+- Download a Github repo. 
+    ```sh
+    git clone --recursive <repo-url>; # --recursive gets all submodules
+    # the <repo-url> could be either HTTPS or SSH link
+    # a submodule is another Github repo which the main Github repo links to
+    ```
 ## Bonus - github.io static webpage
