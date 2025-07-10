@@ -704,6 +704,7 @@ New Feature
 
 
 ## Rebase Exercise 
+A [short exercise](rebase_exercise.md) on rebasing. 
 
 
 ## Best Practices
