@@ -1,0 +1,80 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.4 Safari/605.1.15" version="27.2.0">
+  <diagram name="Page-1" id="_ZlCCP9yq8uDod350gcD">
+    <mxGraphModel dx="1085" dy="734" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-2" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;editableCssRules=.*;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iOTYuMDAwMzk2NzI4NTE1NjIiIHdpZHRoPSI5Ny42MjcyMjc3ODMyMDMxMiIgdmlld0JveD0iMCAwIDk3LjYyNzIyNzc4MzIwMzEyIDk2LjAwMDM5NjcyODUxNTYyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDguODU0IDBDMjEuODM5IDAgMCAyMiAwIDQ5LjIxN2MwIDIxLjc1NiAxMy45OTMgNDAuMTcyIDMzLjQwNSA0Ni42OSAyLjQyNy40OSAzLjMxNi0xLjA1OSAzLjMxNi0yLjM2MiAwLTEuMTQxLS4wOC01LjA1Mi0uMDgtOS4xMjctMTMuNTkgMi45MzQtMTYuNDItNS44NjctMTYuNDItNS44NjctMi4xODQtNS43MDQtNS40Mi03LjE3LTUuNDItNy4xNy00LjQ0OC0zLjAxNS4zMjQtMy4wMTUuMzI0LTMuMDE1IDQuOTM0LjMyNiA3LjUyMyA1LjA1MiA3LjUyMyA1LjA1MiA0LjM2NyA3LjQ5NiAxMS40MDQgNS4zNzggMTQuMjM1IDQuMDc0LjQwNC0zLjE3OCAxLjY5OS01LjM3OCAzLjA3NC02LjYtMTAuODM5LTEuMTQxLTIyLjI0My01LjM3OC0yMi4yNDMtMjQuMjgzIDAtNS4zNzggMS45NC05Ljc3OCA1LjAxNC0xMy4yLS40ODUtMS4yMjItMi4xODQtNi4yNzUuNDg2LTEzLjAzOCAwIDAgNC4xMjUtMS4zMDQgMTMuNDI2IDUuMDUyYTQ2Ljk3IDQ2Ljk3IDAgMCAxIDEyLjIxNC0xLjYzYzQuMTI1IDAgOC4zMy41NzEgMTIuMjEzIDEuNjMgOS4zMDItNi4zNTYgMTMuNDI3LTUuMDUyIDEzLjQyNy01LjA1MiAyLjY3IDYuNzYzLjk3IDExLjgxNi40ODUgMTMuMDM4IDMuMTU1IDMuNDIyIDUuMDE1IDcuODIyIDUuMDE1IDEzLjIgMCAxOC45MDUtMTEuNDA0IDIzLjA2LTIyLjMyNCAyNC4yODMgMS43OCAxLjU0OCAzLjMxNiA0LjQ4MSAzLjMxNiA5LjEyNiAwIDYuNi0uMDggMTEuODk3LS4wOCAxMy41MjYgMCAxLjMwNC44OSAyLjg1MyAzLjMxNiAyLjM2NCAxOS40MTItNi41MiAzMy40MDUtMjQuOTM1IDMzLjQwNS00Ni42OTFDOTcuNzA3IDIyIDc1Ljc4OCAwIDQ4Ljg1NCAweiIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=;" vertex="1" parent="1">
+          <mxGeometry x="90.41" y="230" width="57.17" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-4" value="" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="48" y="310" width="142" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-26" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="BRMHvQb_0Ewp-2Hj0803-10" target="BRMHvQb_0Ewp-2Hj0803-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="119" y="500" />
+              <mxPoint x="930" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-10" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;UPSTREAM&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="59" y="365" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-11" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;&lt;font&gt;https://github.com/open&lt;/font&gt;kim/kim-api&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="9" y="190" width="220" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-12" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;editableCssRules=.*;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iOTYuMDAwMzk2NzI4NTE1NjIiIHdpZHRoPSI5Ny42MjcyMjc3ODMyMDMxMiIgdmlld0JveD0iMCAwIDk3LjYyNzIyNzc4MzIwMzEyIDk2LjAwMDM5NjcyODUxNTYyIj48cGF0aCBmaWxsPSIjZmZmIiBkPSJNNDguODU0IDBDMjEuODM5IDAgMCAyMiAwIDQ5LjIxN2MwIDIxLjc1NiAxMy45OTMgNDAuMTcyIDMzLjQwNSA0Ni42OSAyLjQyNy40OSAzLjMxNi0xLjA1OSAzLjMxNi0yLjM2MiAwLTEuMTQxLS4wOC01LjA1Mi0uMDgtOS4xMjctMTMuNTkgMi45MzQtMTYuNDItNS44NjctMTYuNDItNS44NjctMi4xODQtNS43MDQtNS40Mi03LjE3LTUuNDItNy4xNy00LjQ0OC0zLjAxNS4zMjQtMy4wMTUuMzI0LTMuMDE1IDQuOTM0LjMyNiA3LjUyMyA1LjA1MiA3LjUyMyA1LjA1MiA0LjM2NyA3LjQ5NiAxMS40MDQgNS4zNzggMTQuMjM1IDQuMDc0LjQwNC0zLjE3OCAxLjY5OS01LjM3OCAzLjA3NC02LjYtMTAuODM5LTEuMTQxLTIyLjI0My01LjM3OC0yMi4yNDMtMjQuMjgzIDAtNS4zNzggMS45NC05Ljc3OCA1LjAxNC0xMy4yLS40ODUtMS4yMjItMi4xODQtNi4yNzUuNDg2LTEzLjAzOCAwIDAgNC4xMjUtMS4zMDQgMTMuNDI2IDUuMDUyYTQ2Ljk3IDQ2Ljk3IDAgMCAxIDEyLjIxNC0xLjYzYzQuMTI1IDAgOC4zMy41NzEgMTIuMjEzIDEuNjMgOS4zMDItNi4zNTYgMTMuNDI3LTUuMDUyIDEzLjQyNy01LjA1MiAyLjY3IDYuNzYzLjk3IDExLjgxNi40ODUgMTMuMDM4IDMuMTU1IDMuNDIyIDUuMDE1IDcuODIyIDUuMDE1IDEzLjIgMCAxOC45MDUtMTEuNDA0IDIzLjA2LTIyLjMyNCAyNC4yODMgMS43OCAxLjU0OCAzLjMxNiA0LjQ4MSAzLjMxNiA5LjEyNiAwIDYuNi0uMDggMTEuODk3LS4wOCAxMy41MjYgMCAxLjMwNC44OSAyLjg1MyAzLjMxNiAyLjM2NCAxOS40MTItNi41MiAzMy40MDUtMjQuOTM1IDMzLjQwNS00Ni42OTFDOTcuNzA3IDIyIDc1Ljc4OCAwIDQ4Ljg1NCAweiIgY2xpcC1ydWxlPSJldmVub2RkIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiLz48L3N2Zz4=;" vertex="1" parent="1">
+          <mxGeometry x="501.40999999999997" y="230" width="57.17" height="56" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-13" value="" style="shape=datastore;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="459" y="310" width="142" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-15" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;ORIGIN&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="485" y="365" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-16" value="&lt;font style=&quot;font-size: 13px;&quot;&gt;&lt;u&gt;&lt;font&gt;https://github.com/nav-mohan&lt;/font&gt;/kim-api&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="410" y="190" width="240" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-21" value="" style="verticalLabelPosition=bottom;html=1;verticalAlign=top;align=center;strokeColor=none;fillColor=#00BEF2;shape=mxgraph.azure.laptop;pointerEvents=1;" vertex="1" parent="1">
+          <mxGeometry x="844" y="325" width="172" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-20" value="&lt;font size=&quot;2&quot;&gt;&lt;u&gt;~/path/to/repo/kim-api&lt;/u&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="855" y="190" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-31" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="BRMHvQb_0Ewp-2Hj0803-10" target="BRMHvQb_0Ewp-2Hj0803-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="259" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-19" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;LOCAL&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="885" y="363" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-22" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;CLONE or ADD&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="660" y="345" width="150" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-23" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;FORK&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="280" y="345" width="70" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-24" value="&lt;pre&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(68, 68, 68));&quot;&gt;&lt;font&gt;&lt;font&gt;git clone &amp;lt;URL&amp;gt;&lt;br&gt;&lt;/font&gt;&lt;font&gt;git remote add origin &amp;lt;URL&amp;gt;&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/pre&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="635" y="385" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-25" value="" style="image;sketch=0;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/mscae/Person.svg;" vertex="1" parent="1">
+          <mxGeometry x="911.5" y="233" width="37" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-27" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b&gt;ADD&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="498.58" y="470" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-28" value="&lt;pre&gt;&lt;span style=&quot;background-color: light-dark(rgb(255, 255, 255), rgb(68, 68, 68));&quot;&gt;&lt;font&gt;&lt;font&gt;git remote add origin &amp;lt;URL&amp;gt;&lt;/font&gt;&lt;/font&gt;&lt;/span&gt;&lt;/pre&gt;" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="450" y="490" width="220" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="BRMHvQb_0Ewp-2Hj0803-32" value="" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="579" y="379.57" as="sourcePoint" />
+            <mxPoint x="885" y="379.57" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
