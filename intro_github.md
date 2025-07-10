@@ -319,22 +319,30 @@ New Feature
 - <b> SSH Keys </b>
     - This is the easiest and recommended method. If you haven't already, generate your private-public ssh-keys. Then copy the contents of the public key (`.pub`) into your clipboard. 
     - Navigate to your __Github Profile Settings__ and under the __Access Settings__, click on __SSH and GPG keys__. Then add a new SSH key. Give it a unique title and paste the contents of your `.pub` file into the textbox. 
+        <div style = "display:flex; align-items:center; justify-content:center;" >
+        <img src = "./auth/profile-settings.png" style="width:320px; margin: 5px; flex-basis:30%;">
+        <img src = "./auth/ssh-keys-1.png" style="width:320px; margin: 5px; flex-basis:30%;">
+        <img src = "./auth/ssh-keys-2.png" style="width:320px; margin: 5px; flex-basis:30%;">
+        <div>
+
     - Once you've registered your SSH key, it becomes straightforward to access your repos  
         ```sh
         # clone a remote repo into your local machine
         git clone git@github.com:[USER]/[REPO]
         
-        # connect your local repo with a specific remote repo
-        git remote add origin git@github.com:[USER]/[REPO]
+        # connect your existing local repo with a specific remote repo
+        cd /path/to/local/repo;     # navigate to the local repo
+        git remote remove origin    # remove any existing remotes called "origin" 
+        git remote add origin git@github.com:[USER]/[REPO];
         ```
 - <b> Github Auth Tokens </b>
     - Github Auth Tokens allow for a more granular access control and are typically used to perform advanced operations using the Github API (such as automation & CI/CD) but, they can also be used for performing regular git repo operations such as contributing code. 
     - To generate your Auth Tokens navigate to your __Github Profile Settings__, and click on __Developer Settings__.  Then under __Personal Access Tokens__ click on __Fine-grained tokens__ or __Tokens (classic)__. 
-    - Both types of tokens have a different UI for configuring the access control restrictions of the token. You should be familiar with  
-    <!-- - <img src = "./auth-token-setting.png" style="width:320px"> -->
+    - Both types of tokens have slightly different UIs for configuring the access control restrictions of the token. For most situations, just ensure that you have the `read from repo` and `write to repo` permissions enabled for your token. 
+    - <img src = "./auth/auth-token-setting.png" style="width:320px">
     - Once you've generated your access-token you need to specify it when managing repos
         ```sh
-        git clone https:// [TOKEN]@github.com/[USER]/[REP0]
+        git clone https://[TOKEN]@github.com/[USER]/[REP0]
         git remote add origin https://[TOKEN]@github.com/[USER]/[REP0] 
         ```
     > NOTE: On Hydra you might have to use Tokens because Hydra blocks SSH connections to Github but permits HTTPS connections.
@@ -342,23 +350,27 @@ New Feature
 - <b> Open up specific repos for collaborations </b>
     - You can also open up a specific repo to contributions from a specific user. 
     - Navigate to your repo's __Settings__ and under __Access__ click on __Collaborations__. Now specify the users you wish to authorize to contribute directly into your repo. 
+        
+        <div style = "display:flex; flex-direction:row; align-items:center" >
+        <img src = "./auth/collab-1.png" style="flex-basis:50%; width:320px; margin:5px">
+        <img src = "./auth/collab-2.png" style="flex-basis:50%; width:320px; margin:5px">
+        </div>
 
-
-### Creating a repo on Github
-- To Create a new repo click on the <button style="background-color:green;color:white;padding:5px; border-radius:5px;border:0">New</button> button on your Github homepage and enter the required fields on the subsequent input form.
+### Creating a new repo on Github
+- To Create a new repo click on the <button style="background-color:green;color:white;padding:5px; border-radius:5px;border:0; font-size:large">New</button> button on your Github homepage and enter the required fields on the subsequent input form.
 
     <img src = "./demo-online/new-repo.png" style="width:640px">
 
 ### Forking from original
-- Instead of creating a new repo, if you wish to  copy an existing repo into your Github account, click on the <button style="background-color:white;color:black;padding:2px 5px;border-radius:5px">Fork</button> button at the top right of the repo. 
+- Instead of creating a new repo, if you wish to  copy an existing repo into your Github account, click on the <button style="background-color:white;color:black;padding:2px 5px;border-radius:5px; border:1px solid black; font-size: large">Fork</button> button at the top right of the repo. 
 
     <img src = "./demo-online/fork.png" style="width:640px">
   
 
 > From hereon we will assume that we are dealing with a fork because that is the more realistic and interesting scenario. 
+>    - `upstream` refers to the _original Github repo_ that you forked from. For example `openkim/kim-api`. 
+>    - `origin` refers to _your fork_ of the original Github repo. For example `nav-mohan/kim-api`
 >    - `local` refers to the Git repo on your local machine.
->    - `upstream` refers to the original Github repo that you forked from. 
->    - `remote` refers to your fork of the original Github repo. 
 
 ### Connecting your `local` Git repo to your `origin` Github repo
 - Once your `origin` repo is established, you need to either create a new repo on your local machine or connect an existing local repo to the remote repo. 
@@ -370,7 +382,7 @@ New Feature
     # if you used Github tokens for authenticating 
     git clone https://[TOKEN]@github.com/[USERNAME]/[REP0]
     ```
-- To connect an existing local repo to your remote repo, navigate to the repo directory on your local machine and execute 
+- To connect an existing local repo to your `origin` repo, navigate to the repo directory on your local machine and execute 
     ```sh
     # if you used ssh-keys for authenticating
     git remote add origin git@github.com:[USERNAME]/[REPO]
@@ -378,8 +390,8 @@ New Feature
     # if you used Github tokens for authenticating 
     git remote add origin https://[TOKEN]@github.com/[USERNAME]/[REP0]
     ```
-    Here, `origin` is the name used by your local repo to refer to the remote repo. You could name it anything else if you wish but `origin` is a standard name.
-- You may connect your `local` git repo to multiple Github repos. This will be useful and (sometimes necessary) when your `origin` repo was forked from an `upstream` repo. For example, lets say username Bob was the original creator of a Github repo `demo_repo` and username Alice has forked Bob's Github repo into her own repo. In this case, Alice would connect her local repo to her Github fork as well as Bob's Github repo. 
+    > Here, `origin` is the name used by your local repo to refer to the remote repo. You could name it anything else if you wish but `origin` is a standard name. If you're working with an existing repo, there might already exist a `remote` connection called `origin`. In that case execute `git remote remove origin;` to remove the connection or call your new remote connection by a different name. 
+- You may connect your `local` git repo to multiple Github repos. This will be necessary when resolving merge-conflicts between `origin` and `upstream`. For example, lets say username Bob was the original creator of a Github repo `demo_repo` and username Alice has forked Bob's Github repo into her own repo. In this case, Alice would connect her local repo to her Github fork as well as Bob's Github repo. 
     ```sh
     # connect to demo_repo fork of Alice 
     git remote add origin git@github.com:alice/demo_repo;
@@ -387,10 +399,14 @@ New Feature
     # connect to original demo_repo repo of Bob
     git remote add upstream git@github.com:bob/demo_repo;
     ```
+    <img src = "./demo-online/upstream-origin-local.png" style="width:640px">
+
+    > NOTE: You could `clone` the `upstream` into you `local` if you merely wish to test out a repo. However, if you plan on contributing to `upstream` then you shouldn't clone `upstream` but instead fork to an `origin` and then clone the `origin`. 
+
 - To list all the remote repos that your `local` repo is connected to, execute `git remote --verbose`
 
     <img src = "./demo-online/remotes.png" style="width:480px">
-
+    
 
 ### Pushing changes to your remote repo
 - Make some edits to the files in your `local` repo, stage the changes, and commit them. 
@@ -399,10 +415,10 @@ New Feature
     git push origin
     ```
 
-### Pull-Requests: Contributing changes from your fork to the upstream
+### Pull-Requests: Contributing changes from your fork `origin` to the `upstream`
 - If your `origin` repo was forked from an `upstream` and you wish to contribute your changes from your `origin` repo to the `upstream`, you can do so by opening a _pull request_. 
 
-- Click on the <button>Contribute</button> button and click on <button style = "background-color:green; color:white; padding:2px 10px; border:none; border-radius:2px"> Open pull Request </button> button
+- Click on the <button style="background-color:white;color:black;padding:2px 5px;border-radius:5px; border:1px solid black; font-size: large">Contribute</button> button and click on <button style = "background-color:green; color:white; padding:2px 10px; border:none; border-radius:4px; font-size:large"> Open pull Request </button> button
 
     <img src = "./demo-online/contribute.png" style="width:480px">
 
@@ -412,7 +428,7 @@ New Feature
 
 
 ### Synchronize your fork with original
-- If the `upstream` of your fork has had changes and you wish to update your `origin` then click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px"> Sync fork </button>. 
+- If the `upstream` of your fork has had changes and you wish to update your `origin` then click on <button style="background-color:white; color:black; padding:5px 10px; border:none; border-radius:5px; font-size:large"> Sync fork </button> button. 
     
     <img src = "./demo-online/sync.png" style="width:480px">
 
@@ -428,6 +444,11 @@ New Feature
 - `git merge` merges the changes from the remote repo into the current branch on your `local` repo.
 - `git pull` calls both `git fetch` and `git merge`. 
 - If you want to preview changes before merging, use `git fetch` followed by `git diff`.
+
+    <img src = "./demo-online/pull-sync.png" style="width:640px">
+
+    > NOTE: It's generally not a good idea to `pull` directly from `upstream` into `local` unless you're merely testing out a repo. If you plan to contribute to `upstream` then always remember to update your `origin` first before updating your `local`.
+
 
 ## Merge-Conflict (online)
 - Resolving an online merge-conflict is very similar to the previously explored offline merge-conflict but there are some extra steps. 
@@ -445,13 +466,17 @@ New Feature
     git fetch upstream;         # get latest upstream
     git merge upstream/main;    # merge upstream/main -> local/topic_branch
     ```
-    > NOTE: The direction of this merge is the opposite of what you would usually do. 
+    > NOTE: The direction of this merge is the opposite of what you would usually do. Typically we merge from `topic-branch` into `main` but in this case we are merging from `main` into `topic-branch` 
+
 - Git will alert you to the merge-conflict and halt the merge operation midway. Now resolve the merge-conflict *locally*, by following the same steps as the offline scenario.
 - Once `upstream/main` has been merged into `local/topic_branch` you may now push your `local/topic_branch` into your `origin/topic_branch`. Remember to use the `-f` flag for `force-push` because `local/topic_branch` and `origin/topic_branch` have _diverged_. 
     ```sh
     # use -f flag for force-push 
     git push -f origin
     ```
+
+- Resolving the merge-conflict by merging `main` into `topic-branch` will create a new _merge-commmit_. If you wish to avoid that and maintain a _linear commit history_ then you should use `git rebase`. We will discuss this in the next section.  
+
 ## Exploring \& modifying the commit history
 ### Detaching the `HEAD` with `git checkout`
 - Execute `git log` command on any repo. For example, here are the logs of the `devel` branch of the `kim-api` repo
@@ -736,5 +761,12 @@ New Feature
     git clone --recursive <repo-url>; # --recursive gets all submodules
     # the <repo-url> could be either HTTPS or SSH link
     # a submodule is another Github repo which the main Github repo links to
+    ```
+
+- Save your work-in-progress
+    ```sh
+    git stash push -m "WIP - bugfix";   # save your uncommited diff 
+    git stash list;                     # list all the stashes
+    git stash apply stash{<N>}          # apply specific stash 
     ```
 ## Bonus - github.io static webpage
