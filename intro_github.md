@@ -702,6 +702,29 @@ New Feature
     - Now you can open VSCode and make any further edits to the codebase that you wish to include in the commit. 
     - Once you've made the required edits execute `git rebase --continue`. 
 
+- #### 7) Linearize the commit-history after a merge
+    - If you've already merged a `topic-branch` into `main`, resulting in a merge-commit, you can linearize it later.
+    - Start by executing `git rebase <commit-hash>` where `<commit-hash>` is prior to the merge-commit you wish to remove.  This will rewind the commit-history back to `<commit-hash>` and then replay the commits one at a time but skip over merge-commits. 
+        
+        > WARNING: This will also remove any `tags` in the commits being replayed. So you will have to manually add the release-tags to commits. 
+
+
+        <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse; text-align: center;">
+        <thead>
+            <tr>
+            <th style="border: 1px solid #ccc;">Logs before Rebase</th>
+            <th style="border: 1px solid #ccc;">Status After Rebase</th>
+            <th style="border: 1px solid #ccc;">Logs after Rebase</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td style="border: 1px solid #ccc;"><img src="./commit-history/linearize-1.png" width="480px"></td>
+            <td style="border: 1px solid #ccc;"><img src="./commit-history/linearize-2.png" width="480px"></td>
+            <td style="border: 1px solid #ccc;"><img src="./commit-history/linearize-3.png" width="480px"></td>
+            </tr>
+        </tbody>
+        </table>
 
 ## Rebase Exercise 
 A [short exercise](./rebase-exercise/rebase_exercise.md) on rebasing. 
