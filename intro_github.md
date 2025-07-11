@@ -757,7 +757,7 @@ A [short exercise](./rebase-exercise/rebase_exercise.md) on rebasing.
     
     git reset --<hard/mixed/soft> HEAD~N; # move head to commit_hash, N-commits back 
     ```
-- Download a Github repo. 
+- Download a Github repo and all it's submodules. 
     ```sh
     git clone --recursive <repo-url>; # --recursive gets all submodules
     # the <repo-url> could be either HTTPS or SSH link
