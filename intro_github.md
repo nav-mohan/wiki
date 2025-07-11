@@ -704,7 +704,7 @@ New Feature
 
 
 ## Rebase Exercise 
-A [short exercise](rebase_exercise.md) on rebasing. 
+A [short exercise](./rebase-exercise/rebase_exercise.md) on rebasing. 
 
 
 ## Best Practices
