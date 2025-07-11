@@ -770,4 +770,14 @@ A [short exercise](./rebase-exercise/rebase_exercise.md) on rebasing.
     git stash list;                     # list all the stashes
     git stash apply stash{<N>}          # apply specific stash 
     ```
+
+- Binary search for the source of a bug. If you know that a bug was introduced sometime between your current branch head and the commit-id `1a2b3c` you can start a `git bisect` session and specify the extents of the binary search
+    ```sh
+    git bisect start;       # start a git bisect session
+    git bisect bad;         # branch head is buggy. Right extent
+    git bisect good 1a2b3c  # commit 1a2b3c is not buggy. Left extent
+    ```
+    Now git will rewind to the middle of the extents. Test your code for the bug. If the bug exists then execute `git bisect bad` and git will rewind to an earlier point in time. If the bug doesn't exist then execute `git bisect good` and git will progress to a later point in time. Repeat this until you narrow down the left-extent and right-extent of the binary search into a single commit. 
+
+
 ## Bonus - github.io static webpage
